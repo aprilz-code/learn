@@ -6,7 +6,7 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
   datasource:
-    url: jdbc:mysql://119.91.87.105:3306/mall_tiny?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.91.87.105:3306/mall_tiny?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: peiqi666
   servlet:
@@ -20,7 +20,7 @@ mybatis:
     - classpath*:com/**/mapper/*.xml
 # MinIO对象存储相关配置
 minio:
-  endpoint: http://119.91.87.105:9000 #MinIO服务所在地址
+  endpoint: http://192.91.87.105:9000 #MinIO服务所在地址
   bucketName: mall #存储桶名称
   accessKey: admin #访问的key
   secretKey: peiqi666 #访问的秘钥
