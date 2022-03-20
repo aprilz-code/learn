@@ -8,7 +8,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>cn.lilishop</groupId>
     <artifactId>elk</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>elk</name>
