@@ -8,7 +8,7 @@ spring:
   datasource:
     url: jdbc:mysql://192.91.87.105:3306/mall_tiny?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
-    password: peiqi666
+    password: 123456
   servlet:
     multipart:
       enabled: true #开启文件上传
@@ -23,5 +23,5 @@ minio:
   endpoint: http://192.91.87.105:9000 #MinIO服务所在地址
   bucketName: mall #存储桶名称
   accessKey: admin #访问的key
-  secretKey: peiqi666 #访问的秘钥
+  secretKey: 123456 #访问的秘钥
 
