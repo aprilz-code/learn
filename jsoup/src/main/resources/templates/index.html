@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/static/js/jquery-3.6.1.min.js"></script>
+    <script src="/static/js/hls.min.js"></script>
+</head>
+<body>
+选择转码文件： <input name="file" type="file" accept="video/*" onchange="upload(event)">
+<hr/>
+<video id="video" width="700" height="500" controls="controls" autoplay muted></video>
+</body>
+<script>
+
+    const video = document.getElementById('video');
+
+    $(function () {
+        //按下鼠标发出声音
+        $(document.body).mousedown(function () {
+            video.muted = false;
+        })
+    })
+
+
+    if (Hls.isSupported()) {
+        // 获取 video 标签
+        // 实例化 Hls 对象
+        var hls = new Hls();
+        // 传入路径
+        hls.loadSource('http://localhost:8080/tv/20221125/test/ts/index.m3u8');
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+            //在最新版的Chrome浏览器（以及所有以Chromium为内核的浏览器）中，已不再允许自动播放音频和视频。就算你为video或audio标签设置了autoplay属性也一样不能自动播放。
+            video.play(); // 调用播放 API
+        });
+    } else {
+        alert("不支持HLS");
+    }
+
+
+    function upload(e) {
+        let files = e.target.files
+        if (!files) {
+            return
+        }
+
+        // TODO 转码配置这里固定死了
+        var transCodeConfig = {
+            poster: "00:00:00.001", // 截取第1毫秒作为封面
+            tsSeconds: 15,
+            cutStart: "",
+            cutEnd: ""
+        }
+
+        // 执行上传
+        let formData = new FormData();
+        formData.append("file", files[0])
+        formData.append("config", new Blob([JSON.stringify(transCodeConfig)], {type: "application/json; charset=utf-8"}))
+
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        })
+            .then(resp => resp.json())
+            .then(message => {
+                if (message.success) {
+                    // 设置封面
+                    video.poster = message.data.poster;
+
+                    // 渲染到播放器
+                    var hls = new Hls();
+                    hls.loadSource(message.data.m3u8);
+                    hls.attachMedia(video);
+                } else {
+                    alert("转码异常，详情查看控制台");
+                    console.log(message.message);
+                }
+            })
+            .catch(err => {
+                alert("转码异常，详情查看控制台");
+                throw err
+            })
+    }
+</script>
+</html>

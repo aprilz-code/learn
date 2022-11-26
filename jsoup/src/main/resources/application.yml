@@ -1,0 +1,27 @@
+app:
+  # \u5B58\u50A8\u8F6C\u7801\u89C6\u9891\u7684\u6587\u4EF6\u5939\u5730\u5740
+  video-folder: "E://tv"
+
+spring:
+  thymeleaf:
+    prefix:
+      classpath: /templates   # \u8BBF\u95EEtemplate\u4E0B\u7684html\u6587\u4EF6\u9700\u8981\u914D\u7F6E\u6A21\u677F\uFF0C\u6620\u5C04
+    cache: false # \u5F00\u53D1\u65F6\u5173\u95ED\u7F13\u5B58,\u4E0D\u7136\u6CA1\u6CD5\u770B\u5230\u5B9E\u65F6\u9875\u9762
+  servlet:
+    multipart:
+      enabled: true
+      # \u4E0D\u9650\u5236\u6587\u4EF6\u5927\u5C0F
+      max-file-size: -1
+      # \u4E0D\u9650\u5236\u8BF7\u6C42\u4F53\u5927\u5C0F
+      max-request-size: -1
+      # \u4E34\u65F6IO\u76EE\u5F55
+      location: "${java.io.tmpdir}"
+      # \u4E0D\u5EF6\u8FDF\u89E3\u6790
+      resolve-lazily: false
+      # \u8D85\u8FC71Mb\uFF0C\u5C31IO\u5230\u4E34\u65F6\u76EE\u5F55
+      file-size-threshold: 1MB
+#  web:
+#    resources:
+#      static-locations:
+#        - "classpath:/static/"
+#        - "file:${app.video-folder}/" # \u628A\u89C6\u9891\u6587\u4EF6\u5939\u76EE\u5F55\uFF0C\u6DFB\u52A0\u5230\u9759\u6001\u8D44\u6E90\u76EE\u5F55\u5217\u8868
